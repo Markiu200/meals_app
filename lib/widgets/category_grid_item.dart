@@ -13,7 +13,7 @@ class CategoryGridItem extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            category.color.withAlpha(190),
+            category.color.withAlpha(100),
             category.color.withAlpha(220),
           ],
           begin: Alignment.topLeft,

@@ -15,6 +15,7 @@ class CategoryGridItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
           gradient: LinearGradient(
             colors: [
               category.color.withAlpha(100),

@@ -10,6 +10,11 @@ class MealItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.all(8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      // To force shape that is ignored by nested widgets (like Stack here)
+      elevation: 2,
+      clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () {},
         child: Stack(

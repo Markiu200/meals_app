@@ -7,7 +7,7 @@ class MealItem extends StatelessWidget {
   const MealItem({super.key, required this.meal, required this.onSelectMeal});
 
   final Meal meal;
-  final void Function() onSelectMeal;
+  final void Function(Meal meal) onSelectMeal;
 
   String get complexityText {
     return meal.complexity.name[0].toUpperCase() +
@@ -28,7 +28,9 @@ class MealItem extends StatelessWidget {
       elevation: 2,
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: onSelectMeal,
+        onTap: () {
+          onSelectMeal(meal);
+        },
         child: Stack(
           // kTransparentImage is just transparent image, but it helps with
           // achieving visual effect of image appearing on a screen when it's

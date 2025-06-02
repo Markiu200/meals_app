@@ -10,7 +10,7 @@ class MealDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(meal.title)),
-      body: Column(
+      body: ListView(
         children: [
           Image.network(
             meal.imageUrl,

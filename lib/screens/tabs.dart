@@ -48,13 +48,12 @@ class _TabsScreenState extends State<TabsScreen> {
   }
 
   void _setScreen(String identifier) {
+    // Close Drawer
+    Navigator.of(context).pop();
     if (identifier == 'filters') {
       Navigator.of(
         context,
       ).push(MaterialPageRoute(builder: (ctx) => const FiltersScreen()));
-    } else {
-      // Close Drawer
-      Navigator.of(context).pop();
     }
   }
 

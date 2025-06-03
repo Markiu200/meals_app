@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/widgets/main_drawer.dart';
 
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({super.key});
@@ -17,17 +16,20 @@ class _FiltersScreenState extends State<FiltersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Your Filters')),
-      drawer: MainDrawer(
-        onSelectScreen: (identifier) {
-          Navigator.of(context).pop();
-          if (identifier == 'meals') {
-            Navigator.of(context).pop();
-            // Navigator.of(context).pushReplacement(
-            //   MaterialPageRoute(builder: (ctx) => TabsScreen()),
-            // );
-          }
-        },
-      ),
+      // This is to show and exercise navigation. It isn't really convenient from
+      // the app perspective though, so it's commented out.
+      //
+      // drawer: MainDrawer(
+      //   onSelectScreen: (identifier) {
+      //     Navigator.of(context).pop();
+      //     if (identifier == 'meals') {
+      //       Navigator.of(context).pop();
+      //       // Navigator.of(context).pushReplacement(
+      //       //   MaterialPageRoute(builder: (ctx) => TabsScreen()),
+      //       // );
+      //     }
+      //   },
+      // ),
       body: Column(
         children: [
           SwitchListTile(

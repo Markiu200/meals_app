@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/screens/tabs.dart';
 import 'package:meals_app/widgets/main_drawer.dart';
 
 class FiltersScreen extends StatefulWidget {
@@ -22,9 +21,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
         onSelectScreen: (identifier) {
           Navigator.of(context).pop();
           if (identifier == 'meals') {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (ctx) => TabsScreen()),
-            );
+            Navigator.of(context).pop();
+            // Navigator.of(context).pushReplacement(
+            //   MaterialPageRoute(builder: (ctx) => TabsScreen()),
+            // );
           }
         },
       ),

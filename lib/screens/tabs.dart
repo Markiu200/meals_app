@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/data/dummy_data.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/filters.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/widgets/main_drawer.dart';
+import 'package:meals_app/providers/meals_provide.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Flutter convention of naming global variables with "k" prefix
 const kInitialFilters = {
@@ -14,16 +15,16 @@ const kInitialFilters = {
   Filter.vegan: false,
 };
 
-class TabsScreen extends StatefulWidget {
+class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<TabsScreen> createState() {
     return _TabsScreenState();
   }
 }
 
-class _TabsScreenState extends State<TabsScreen> {
+class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedPageIndex = 0;
   final List<Meal> _favoriteMeals = [];
   Map<Filter, bool> _selectedFilters = kInitialFilters;
@@ -75,8 +76,12 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ref allows to set up listeners to providers
+    // ref.watch() will rebuid build when data changes. Always preferred over read()
+    // that reads only once.
+    final meals = ref.watch(mealsProvider);
     final availableMeals =
-        dummyMeals.where((meal) {
+        meals.where((meal) {
           if (_selectedFilters[Filter.glutenFree]! && !meal.isGlutenFree) {
             return false;
           }

@@ -11,9 +11,14 @@ class FiltersNotifier extends StateNotifier<Map<Filter, bool>> {
         Filter.vegetarian: false,
         Filter.vegan: false,
       });
+
   void setFilter(Filter filter, bool isActive) {
     // Spread operator works with maps too
     state = {...state, filter: isActive};
+  }
+
+  void setFilters(Map<Filter, bool> chosenFilters) {
+    state = chosenFilters;
   }
 }
 

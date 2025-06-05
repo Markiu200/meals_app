@@ -6,6 +6,7 @@ import 'package:meals_app/widgets/main_drawer.dart';
 import 'package:meals_app/providers/meals_provide.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_app/providers/favorites_provider.dart';
+import 'package:meals_app/providers/filters_provider.dart';
 
 // Flutter convention of naming global variables with "k" prefix
 const kInitialFilters = {

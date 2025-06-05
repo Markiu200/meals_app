@@ -8,7 +8,7 @@ class FavoriteMealsNotifier extends StateNotifier<List<Meal>> {
   // empty list (of Meals).
   FavoriteMealsNotifier() : super([]);
 
-  void toggleMealFavoriteStatus(Meal meal) {
+  bool toggleMealFavoriteStatus(Meal meal) {
     // [state] is provided by StateNotifier. It holds the data to provide.
     // At start it should be "[]" as we had in constructor.
     final mealIsFavorite = state.contains(meal);
@@ -17,8 +17,10 @@ class FavoriteMealsNotifier extends StateNotifier<List<Meal>> {
       // [state] is immutable by design, so any changes to a list must be done by
       // creating brand new list every time.
       state = state.where((m) => m.id != meal.id).toList();
+      return false; // to know what to display in a SnackBar
     } else {
       state = [...state, meal];
+      return true;
     }
   }
 }

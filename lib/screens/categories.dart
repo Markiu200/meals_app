@@ -29,10 +29,13 @@ class _CategoriesScreenState extends State<CategoriesScreen>
     // what it needs.
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(microseconds: 300),
+      duration: const Duration(milliseconds: 300),
       lowerBound: 0, // default anyway
       upperBound: 1, // default anyway
     );
+
+    // this plays animation
+    _animationController.forward();
   }
 
   @override
@@ -59,24 +62,40 @@ class _CategoriesScreenState extends State<CategoriesScreen>
 
   @override
   Widget build(BuildContext context) {
-    // Each screen will have it's own scaffold, so each can have it's own Appbar
-    return GridView(
-      padding: const EdgeInsets.all(24),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 3 / 2,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
+    // AnimationController won't actually run build() every tick. Instead you'll
+    // need to let it know what to rebuild using AnimatedBuilder().
+    return AnimatedBuilder(
+      // builder: is what will be rendered every tick.
+      // child - here you pass what shouldn't be rebuid, even though is wrapped by
+      // a thing that we actually want animated. This is to improve performance.
+      animation: _animationController,
+      child: GridView(
+        padding: const EdgeInsets.all(24),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 3 / 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+        ),
+        children: [
+          for (final category in availableCategories)
+            CategoryGridItem(
+              category: category,
+              onSelectCategory: () {
+                _selectCategory(context, category);
+              },
+            ),
+        ],
       ),
-      children: [
-        for (final category in availableCategories)
-          CategoryGridItem(
-            category: category,
-            onSelectCategory: () {
-              _selectCategory(context, category);
-            },
+      builder:
+          // In this case, it's Padding that will be evaluated every tick. "child"
+          // is the part that will be not evaluated.
+          (context, child) => Padding(
+            padding: EdgeInsets.only(
+              top: 100 - _animationController.value * 100,
+            ),
+            child: child,
           ),
-      ],
     );
   }
 }

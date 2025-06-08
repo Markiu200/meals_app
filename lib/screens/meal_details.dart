@@ -62,11 +62,15 @@ class MealDetailsScreen extends ConsumerWidget {
       ),
       body: ListView(
         children: [
-          Image.network(
-            meal.imageUrl,
-            height: 300,
-            width: double.infinity,
-            fit: BoxFit.cover,
+          // Hero paired with meal_item Hero by tag.
+          Hero(
+            tag: meal.id,
+            child: Image.network(
+              meal.imageUrl,
+              height: 300,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(height: 14),
           Text(

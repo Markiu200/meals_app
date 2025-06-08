@@ -37,7 +37,23 @@ class MealDetailsScreen extends ConsumerWidget {
                 ),
               );
             },
-            icon: Icon(isFavorite ? Icons.star : Icons.star_border),
+            icon: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              // This will detect whether [child] changes and if it does, it will
+              // run the animation.
+              transitionBuilder: (child, animation) {
+                // You return what kind of animation you want.
+                // [child] still refers to that one from parameters and the Icon.
+                return RotationTransition(turns: animation, child: child);
+              },
+              // Key is required because of all that widget - element thing.
+              // Key will be taken into account by AnimationSwitcher to determine
+              // if the [child] have changed or not.
+              child: Icon(
+                isFavorite ? Icons.star : Icons.star_border,
+                key: ValueKey(isFavorite),
+              ),
+            ),
           ),
         ],
       ),

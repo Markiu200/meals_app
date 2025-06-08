@@ -5,14 +5,46 @@ import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/widgets/category_grid_item.dart';
 import 'package:meals_app/models/category.dart';
 
-class CategoriesScreen extends StatelessWidget {
+// To handle explicit animations, widget with animation must be stateful
+class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key, required this.availableMeals});
 
   final List<Meal> availableMeals;
 
+  @override
+  State<CategoriesScreen> createState() => _CategoriesScreenState();
+}
+
+// "SingleTickerProviderStateMixin" Mixin is needed for animations.
+class _CategoriesScreenState extends State<CategoriesScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  @override
+  void initState() {
+    super.initState();
+
+    // must be initialized before build(), but not in class body (for reasons?)
+    //
+    // "this" as this class, as it now with SingleTickerProviderStateMixin has
+    // what it needs.
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(microseconds: 300),
+      lowerBound: 0, // default anyway
+      upperBound: 1, // default anyway
+    );
+  }
+
+  @override
+  void dispose() {
+    // used dispose() in expense tracker to dispose input controllers
+    _animationController.dispose();
+    super.dispose();
+  }
+
   void _selectCategory(BuildContext context, Category category) {
     final filteredMeals =
-        availableMeals
+        widget.availableMeals
             .where((meal) => meal.categories.contains(category.id))
             .toList();
 

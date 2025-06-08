@@ -88,11 +88,11 @@ class _CategoriesScreenState extends State<CategoriesScreen>
         ],
       ),
       builder:
-          // In this case, it's Padding that will be evaluated every tick. "child"
-          // is the part that will be not evaluated.
-          (context, child) => Padding(
-            padding: EdgeInsets.only(
-              top: 100 - _animationController.value * 100,
+          // "child" part will not be evaluated every tick. It's the SlideTransition
+          // that's gonna "animate", and here it's a sliding effect.
+          (context, child) => SlideTransition(
+            position: _animationController.drive(
+              Tween(begin: const Offset(0, 0.3), end: const Offset(0, 0)),
             ),
             child: child,
           ),

@@ -44,7 +44,10 @@ class MealDetailsScreen extends ConsumerWidget {
               transitionBuilder: (child, animation) {
                 // You return what kind of animation you want.
                 // [child] still refers to that one from parameters and the Icon.
-                return RotationTransition(turns: animation, child: child);
+                return RotationTransition(
+                  turns: Tween<double>(begin: 0.8, end: 1).animate(animation),
+                  child: child,
+                );
               },
               // Key is required because of all that widget - element thing.
               // Key will be taken into account by AnimationSwitcher to determine
